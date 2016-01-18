@@ -1,0 +1,126 @@
+#1.KVC（key value coding）
+##1.1 kvc简介
+我们一般是通过调用set方法或属性的点语法来直接更改对象的状态，即对象的属性值，比如[stu setAge:10];  stu.age = 9;
+KVC是一种间接更改对象状态的方式，其实现方法是使用字符串来描述对象需要更改的属性。KVC中的基本调用包括valueForKey:和setValue:ForKey:，以字符串的形式向对象发送消息
+这里以Student和Card为例子
+
+```
+@interface Card : NSObject
+@property (nonatomic, copy) NSString *no;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, retain) Card *card;
+@end
+
+@interface Student : NSObject
+@property (nonatomic, assign) NSInteger age;
+@end
+```
+##1.2 valueForKey:
+
+使用valueForKey:获取Student对象的name
+```
+NSString *name = [student valueForKey:@"name"];
+```
+valueForKey:首先查找以name或isName命名的getter方法，如果不存在getter方法，就在对象内部查找名为_name或name的实例变量 
+
+注意，下列语句是合法的
+```
+NSLog(@"age is %@", [student valueForKey:@"age"]);
+```
+NSLog中的%@输出一个对象，但age是一个int值，而不是对象，为什么会合理呢？原因如下：
+使用valueForKey:时，KVC会自动将标量值(int、float、struct等)翻入NSNumber或NSValue中包装成一个对象，然后返回。因此，KVC有自动包装功能。
+##1.3 setValue:ForKey:
+ - 使用setValue:ForKey:设置Student对象的name
+```
+[student setValue:@"MJ" forKey:@"name"];
+```
+这个方法的工作方式和valueForKey:相同，首先查找setter方法，例如setName:，如果不存在setter方法，就在类中查找名为name或者_name的实例变量，然后为它赋值。
+
+使用setValue:ForKey:设置Student对象的age
+```
+[student setValue:[NSNumber numberWithInt:17] forKey:@"age"];
+```
+**在设置一个标量值时，需要先将标量值包装成一个NSNumber或NSValue对象**
+##1.4 批处理
+ - KVC可以对对象进行批量更改
+例如，同时获取Student的age和name
+```
+NSArray *keys = [NSArray arrayWithObjects:@"name", @"age", nil];
+NSDictionary *dict = [student dictionaryWithValuesForKeys:keys];
+```
+ - 同时设置Student的age和name
+```
+NSArray *keys = [NSArray arrayWithObjects:@"name", @"age", nil];
+NSArray *values = [NSArray arrayWithObjects:@"MJ", [NSNumber numberWithInt:16], nil];
+NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
+[student setValuesForKeysWithDictionary:dict];
+```
+##1.5 键路径(key path)
+除了通过键设置值外，KVC还支持键路径，像文件系统路径一样，其实就是属性链式访问
+比如，利用键路径设置Student对象中Card对象的no
+[student setValue:@"12345" forKeyPath:@"card.no"];
+获取Student对象中Card对象的no
+[student valueForKeyPath:@"card.no"];
+##1.6 数组的整体操作
+如果向一个NSArray请求一个key，KVC会查询数组中的每个对象来查找这个key，然后将查询结果打包到另一个数组中并返回
+例如，Student里面有很多Book对象
+
+获取Student中所有Book的name
+```
+NSArray *names = [student.books valueForKeyPath:@"name"]; 或者
+NSArray *names = [student valueForKeyPath:@"books.name"];
+```
+**注意**：不能在键路径中为数组添加索引，比如@"books[0].name"
+##1.7 键路径的运算符
+在键路径中，可以引用一些运算符来进行一些运算，例如获取一组值的平均值、最小值、最大值或者总数
+例如，计算Student中Book的总数
+```
+NSNumber *count = [student.books valueForKeyPath:@"@count"];   或者
+NSNumber *count = [student valueForKeyPath:@"books.@count"];
+```
+计算Student中所有Book的价钱(price)总和
+```
+NSNumber *sum = [student.books valueForKeyPath:@"@sum.price"]; 或者
+NSNumber *sum = [student valueForKeyPath:@"books.@sum.price"];
+```
+找出Student中Book的所有不同价位(排除相同价位)
+```
+NSArray *prices = [student.books valueForKeyPath:@"@distinctUnionOfObjects.price"];
+或者
+NSArray *prices = [student valueForKeyPath:@"books.@distinctUnionOfObjects.price"];
+```
+# 2. KVO（key value observing）
+KVO是一种非常重要的机制，它允许监听对象的属性的变化
+
+注册监听器
+
+```
+-(void)addObserver:(NSObject *)anObserver forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
+anObserver ：监听器对象
+keyPath ：监听的属性
+options ：决定了当属性改变时，要传递什么数据给监听器
+```
+
+
+
+监听器需要实现监听方法
+```
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)objectchange:(NSDictionary *)change context:(void *)context
+keyPath ：监听的属性
+object ：谁的属性改变了
+change ：属性改变时传递过来的信息（取决于添加监听器时的options参数）
+```
+
+移除监听器 
+```
+-(void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath
+```
+
+
+
+
+
+
+
+
+
