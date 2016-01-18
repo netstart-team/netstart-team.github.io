@@ -1,8 +1,8 @@
 ---
 layout:     post
 title:      "WebKit.framework 简明教程"
-subtitle:   "WebKit.framework 简明教程"
-date:       2015-09-22
+subtitle:   "在iOS 8中Apple提供了一个新的WebView框架 **WebKit.framework** 相较于UIKit中得UIWebView。"
+date:       2016-01-18
 author:     "leon"
 header-img: "img/post-bg-js-version.jpg"
 tags:
