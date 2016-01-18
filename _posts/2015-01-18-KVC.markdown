@@ -29,7 +29,7 @@ KVC是一种间接更改对象状态的方式，其实现方法是使用字符�
 @end
 ```
 
-##1.2 valueForKey:
+## 1.2 valueForKey:
 
 使用valueForKey:获取Student对象的name
 ```
@@ -44,7 +44,7 @@ NSLog(@"age is %@", [student valueForKey:@"age"]);
 NSLog中的%@输出一个对象，但age是一个int值，而不是对象，为什么会合理呢？原因如下：
 使用valueForKey:时，KVC会自动将标量值(int、float、struct等)翻入NSNumber或NSValue中包装成一个对象，然后返回。因此，KVC有自动包装功能。
 
-##1.3 setValue:ForKey:
+## 1.3 setValue:ForKey:
 
  - 使用setValue:ForKey:设置Student对象的name
 ```
@@ -58,7 +58,7 @@ NSLog中的%@输出一个对象，但age是一个int值，而不是对象，为�
 ```
 **在设置一个标量值时，需要先将标量值包装成一个NSNumber或NSValue对象**
 
-##1.4 批处理
+## 1.4 批处理
 
  - KVC可以对对象进行批量更改
 例如，同时获取Student的age和name
@@ -73,7 +73,7 @@ NSArray *values = [NSArray arrayWithObjects:@"MJ", [NSNumber numberWithInt:16], 
 NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
 [student setValuesForKeysWithDictionary:dict];
 ```
-##1.5 键路径(key path)
+## 1.5 键路径(key path)
 
 除了通过键设置值外，KVC还支持键路径，像文件系统路径一样，其实就是属性链式访问
 比如，利用键路径设置Student对象中Card对象的no
@@ -81,7 +81,7 @@ NSDictionary *dict = [NSDictionary dictionaryWithObjects:values forKeys:keys];
 获取Student对象中Card对象的no
 [student valueForKeyPath:@"card.no"];
 
-##1.6 数组的整体操作
+## 1.6 数组的整体操作
 
 如果向一个NSArray请求一个key，KVC会查询数组中的每个对象来查找这个key，然后将查询结果打包到另一个数组中并返回
 例如，Student里面有很多Book对象
@@ -93,7 +93,7 @@ NSArray *names = [student valueForKeyPath:@"books.name"];
 ```
 **注意**：不能在键路径中为数组添加索引，比如@"books[0].name"
 
-##1.7 键路径的运算符
+## 1.7 键路径的运算符
 
 在键路径中，可以引用一些运算符来进行一些运算，例如获取一组值的平均值、最小值、最大值或者总数
 例如，计算Student中Book的总数
