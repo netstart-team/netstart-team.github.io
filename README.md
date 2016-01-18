@@ -1,9 +1,20 @@
-# HuxBlog Boilerplate
+### Intro
+[网创科技](http://www.lagou.com/gongsi/77866.html)的前身为宁波市网络产业创业园，成立于2006年，从早期立足于甬城，到目前的广州，杭州多地齐头并进，至今在互联网多个领域取得了多个傲人成绩。
 
-##### This is the boilerplate of [Hux Blog](https://github.com/Huxpro/huxpro.github.io), all documents is over there!
+### About Blog
+为了积累我们的技术沉淀，所以我们决定开启博客。并且分享我们的技术，为中国开源做一份贡献的同时；也同样是对我们的发展、互相交流，互相有帮助。
 
-#### [View Boilerplate &rarr;](http://huangxuan.me/huxblog-boilerplate/)
+### TODO
+- [x] 域名绑定
+- [x] LOGO修改
+- [ ] 修改Cover 封面
+- [ ] 增加社交账号（仅需注册id）
+- [ ] 增加多说评论（需申请，仅需注册id）
+- [ ] 增加百度/Google 统计（仅需注册id）
+- [ ] 增加友链
+- [ ] 修改关于我们（文案修改）
+- [ ] 文章的添加
+- [ ] 博客成员添加
 
-#### [View Live Hux Blog &rarr;](http://huangxuan.me)
-
-## If you like Hux Blog, Please star [huxpro.github.io repo](https://github.com/Huxpro/huxpro.github.io) instead of this! Thank you!
+### Tanks
+博客模板来源于[huxpro.github.io repo](https://github.com/Huxpro/huxpro.github.io)
