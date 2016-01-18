@@ -1,3 +1,15 @@
+---
+layout:     post
+title:      "KVC（key value coding）简介"
+subtitle:   "Introduction Of key value coding"
+date:       2016-01-18
+author:     "周焕强"
+header-img: ""
+tags:
+    - iOS开发
+    - Objective-C
+    
+---
 #1.KVC（key value coding）
 ##1.1 kvc简介
 我们一般是通过调用set方法或属性的点语法来直接更改对象的状态，即对象的属性值，比如[stu setAge:10];  stu.age = 9;
