@@ -6,7 +6,7 @@ email: wcd@95180.com
 description: "网创科技的前身为宁波市网络产业创业园，成立于2006年，从早期立足于甬城，到目前的广州，杭州多地齐头并进，至今在互联网多个领域取得了多个傲人成绩。"
 keyword: "宁波,创业,网络,IT,企业,创新"
 url: "blog.netstartup.cn"              # your host, for absolute URL
-baseurl: "/"                             # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
